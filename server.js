@@ -8,6 +8,9 @@ const app = express()
 // Connect Database
 connectDB()
 
+// Initialize Middleware. Allows us to get data in req.body (route pages)
+app.use(express.json({extended: false}));
+
 //Single endpoint just to test API. Send data to browser
 app.get('/', (req, res) => res.send('API Running'))
 
