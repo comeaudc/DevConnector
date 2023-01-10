@@ -2,8 +2,11 @@ const express = require('express');
 const router = express.Router();
 const gravatar = require('gravatar')
 const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
+const config = require('config')
 // Bring in express validator (tools for validating password. Check Docs)
 const { check, validationResult} = require('express-validator')
+
 
 // Bring in our User.js model
 const User = require('../../models/User')
@@ -64,7 +67,21 @@ async (req, res) => {
         await user.save()
 
     //return jsonwebtoken (allows them to be logged in)
-    res.send('User Registered')
+    const payload = {
+        user: {
+            id: user.id
+        }
+    }
+
+    jwt.sign(
+        payload, 
+        config.get('jwtToken'),
+        { expiresIn:360000 }, //adds time till expires. one hour is 3600
+        (err, token) => {
+            if(err) throw err;
+            res.json({ token})
+        }) 
+    // res.send('User Registered') // this was a test
 
     } catch(err) {
         console.error(err.message)
