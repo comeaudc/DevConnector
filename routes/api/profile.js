@@ -171,11 +171,72 @@ router.get('/user/:user_id', async (req, res) => {
 router.delete('/', auth, async (req, res) => {
     try {
         // @todo - remove users posts
+
         // Remove profile
         await Profile.findOneAndRemove({ user: req.user.id })
         //Remove User
         await User.findOneAndRemove({ _id: req.user.id })
         res.json({msg: 'User Deleted'})
+    } catch (err) {
+        console.error(err.message)
+        res.status(500).send('Server Error')
+    }
+})
+
+// @route   PUT api/profile/experience
+// @desc    Add profile experience
+// @access  Private
+
+router.put('/experience', [auth, [
+    check('title', 'Title is required')
+    .not()
+    .isEmpty(),
+    check('company', 'Company is required')
+    .not()
+    .isEmpty(),
+    check('from', 'From date is required')
+    .not()
+    .isEmpty()
+]], 
+
+async (req, res) => {
+    const errors = validationResult(req)
+    if(!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() })
+    }
+
+    // Get body data by destructuring
+    const {
+        title,
+        company,
+        location,
+        from,
+        to,
+        current,
+        description,
+    } = req.body
+
+    //create new object
+    const newExp = {
+        title,
+        company,
+        location,
+        from,
+        to,
+        current,
+        description
+    }
+    
+    try {
+        // variable that fetches and gets profile we are to update
+        const profile = await Profile.findOne({  user: req.user.id })
+
+        // profile variable experience attribute add new experience to the front of array 
+        profile.experience.unshift(newExp)
+
+        await profile.save()
+
+        res.json(profile)
     } catch (err) {
         console.error(err.message)
         res.status(500).send('Server Error')
