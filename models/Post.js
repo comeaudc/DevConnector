@@ -20,10 +20,10 @@ const PostSchema = new Schema({
     // An array of likes that only allows each user to like once
     likes: [
         {
-            user: [
+            user: {
                 type: Schema.Types.ObjectId,
                 ref: 'users'
-            ]
+            }
         }
         ]
     ,
