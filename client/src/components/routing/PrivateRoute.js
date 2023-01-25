@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
-import { Route, Navigate } from 'react-router-dom';
+import React from 'react';
+import { Outlet, Navigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Dashboard from '../dashboard/Dashboard';
 
 const PrivateRoute = ({
   auth: { isAuthenticated, loading } 
@@ -10,7 +9,7 @@ const PrivateRoute = ({
     return !isAuthenticated && !loading ? (
         <Navigate to='/login' />
       ) : (
-        <Dashboard />
+        <Outlet />
       )
     };
 
