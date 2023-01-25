@@ -10,7 +10,7 @@ const PrivateRoute = ({
     return !isAuthenticated && !loading ? (
         <Navigate to='/login' />
       ) : (
-        <Dashboard  />
+        <Dashboard />
       )
     };
 
