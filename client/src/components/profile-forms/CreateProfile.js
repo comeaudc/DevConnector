@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { createProfile} from '../../actions/profile';
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 
-const CreateProfile = ({ createProfile, history }) => {
+const CreateProfile = ({ createProfile }) => {
   const nav = useNavigate()
   const [formData, setFormData] = useState({
     company: '',
@@ -43,7 +43,7 @@ const CreateProfile = ({ createProfile, history }) => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    await createProfile(formData, history);
+    await createProfile(formData);
     nav('/dashboard')
   };
 
