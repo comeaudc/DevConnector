@@ -9,7 +9,6 @@ const EditProfile = ({
   createProfile,
   getCurrentProfile,
   }) => {
-  const nav = useNavigate();
   const [formData, setFormData] = useState({
     company: '',
     website: '',
@@ -44,7 +43,7 @@ const EditProfile = ({
       youtube: loading || !profile.social? '' : profile.youtube,
       instagram: loading || !profile.social? '' : profile.instagram,
     });
-  }, [loading]);
+  }, [loading, getCurrentProfile]);
 
   const {
     company,

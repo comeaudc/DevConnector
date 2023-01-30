@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addExperience } from '../../actions/profile';
@@ -28,7 +28,7 @@ const AddExperience = ({ addExperience }) => {
     e.preventDefault();
     await addExperience(formData);
 
-    nav(-1)
+    nav(-1);
   };
 
   return (
@@ -39,7 +39,7 @@ const AddExperience = ({ addExperience }) => {
         positions that you have had in the past
       </p>
       <small>* = required field</small>
-      <form className='form' onSubmit={(e) =>onSubmit(e)}>
+      <form className='form' onSubmit={(e) => onSubmit(e)}>
         <div className='form-group'>
           <input
             type='text'
@@ -126,4 +126,15 @@ AddExperience.propTypes = {
   addExperience: PropTypes.func.isRequired,
 };
 
-export default connect(null, { addExperience })(AddExperience);
+function withRouter(Component) {
+  function ComponentWithRouterProp(props) {
+    let location = useLocation();
+    let navigate = useNavigate();
+    let params = useParams();
+    return <Component {...props} router={{ location, navigate, params }} />;
+  }
+
+  return ComponentWithRouterProp;
+}
+
+export default connect(null, { addExperience })(withRouter(AddExperience));
