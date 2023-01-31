@@ -8,6 +8,7 @@ import Alert from './components/layout/Alert';
 import PrivateRoute from './components/routing/PrivateRoute';
 import CreateProfile from './components/profile-forms/CreateProfile';
 import Container from './components/routing/Container';
+import Posts from './components/posts/Posts';
 import './App.css';
 import { loadUser } from './actions/auth';
 //Redux
@@ -49,6 +50,7 @@ const App = () => {
               <Route path='/edit-profile' element={<EditProfile />} />
               <Route path='/add-experience' element={<AddExperience />} />
               <Route path='/add-education' element={<AddEducation />} />
+              <Route path='posts' element={<Posts />} />
             </Route>
             </Route>
           </Routes>

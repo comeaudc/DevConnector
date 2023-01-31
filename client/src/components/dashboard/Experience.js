@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import Moment from 'react-moment';
 import PropTypes from 'prop-types';
 import { deleteExperience } from '../../actions/profile';
-import { pureFinalPropsSelectorFactory } from 'react-redux/es/connect/selectorFactory';
 
 const Experience = ({ experience, deleteExperience }) => {
   const experiences = experience.map((exp) => (
@@ -19,7 +18,12 @@ const Experience = ({ experience, deleteExperience }) => {
         )}
       </td>
       <td>
-        <button onClick={() => deleteExperience(exp._id)} className='btn btn-danger'>Delete</button>
+        <button
+          onClick={() => deleteExperience(exp._id)}
+          className='btn btn-danger'
+        >
+          Delete
+        </button>
       </td>
     </tr>
   ));
@@ -43,7 +47,7 @@ const Experience = ({ experience, deleteExperience }) => {
 
 Experience.propTypes = {
   experience: PropTypes.array.isRequired,
-  deleteExperience: PropTypes.func.isRequired
+  deleteExperience: PropTypes.func.isRequired,
 };
 
-export default connect(null, {deleteExperience})(Experience);
+export default connect(null, { deleteExperience })(Experience);
