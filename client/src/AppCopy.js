@@ -7,7 +7,6 @@ import Register from './components/auth/Register';
 import Alert from './components/layout/Alert';
 import PrivateRoute from './components/routing/PrivateRoute';
 import CreateProfile from './components/profile-forms/CreateProfile';
-import Container from './components/routing/Container';
 import './App.css';
 import { loadUser } from './actions/auth';
 //Redux
@@ -20,6 +19,7 @@ import AddExperience from './components/profile-forms/AddExperience';
 import AddEducation from './components/profile-forms/AddEducation';
 import Profiles from './components/profiles/Profiles';
 import Profile from './components/profile/Profile';
+import Container from './components/routing/Container';
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -37,19 +37,19 @@ const App = () => {
           <Navbar />
           <Routes>
             <Route path='/' element={<Landing />} />
-            <Route element={<Container/>}>
-            <Route element={<Alert />} />
-            <Route path='/register' element={<Register />} />
-            <Route path='/login' element={<Login />} />
-            <Route path='/profiles' element={<Profiles />} />
-            <Route path='/profile/:id' element={<Profile />} />
-            <Route element={<PrivateRoute />}>
-              <Route path='/dashboard' element={<Dashboard />} />
-              <Route path='/create-profile' element={<CreateProfile />} />
-              <Route path='/edit-profile' element={<EditProfile />} />
-              <Route path='/add-experience' element={<AddExperience />} />
-              <Route path='/add-education' element={<AddEducation />} />
-            </Route>
+            <Route element={<Container />}>
+              <Alert />
+              <Route path='/register' element={<Register />} />
+              <Route path='/login' element={<Login />} />
+              <Route path='/profiles' element={<Profiles />} />
+              <Route path='/profile/:id' element={<Profile />} />
+              <Route element={<PrivateRoute />}>
+                <Route path='/dashboard' element={<Dashboard />} />
+                <Route path='/create-profile' element={<CreateProfile />} />
+                <Route path='/edit-profile' element={<EditProfile />} />
+                <Route path='/add-experience' element={<AddExperience />} />
+                <Route path='/add-education' element={<AddEducation />} />
+              </Route>
             </Route>
           </Routes>
         </Fragment>
